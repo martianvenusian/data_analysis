@@ -1,9 +1,14 @@
 ### Beautiful Soap documentation https://www.crummy.com/software/BeautifulSoup/bs4/doc/
-from collections import Counter
 from string import punctuation
 import urllib.request
 import requests
 from bs4 import BeautifulSoup
+from requests.api import get
+from mecab import Mecab
+
+
+# def get_core_words_kr(text):
+#     return MeCab.morphs(text)
 
 def get_text(url):
     text = ""
@@ -34,19 +39,14 @@ def clean_text(text):
     
     return _data
 
-def count_word_freq(data):
-    _data = data
-    cnt = Counter(_data)
-    return cnt
-
 if __name__ == "__main__":
     # count_word_freq(data)
-    url = "https://daryo.uz/2021/08/01/tokio-2020-fransiyalik-bokschi-hakamlar-qaroridan-norozi-bo%ca%bblib-1-soat-davomida-ringni-tark-etmadi-bu-jangda-bahodir-jalolovning-yarim-finaldagi-raqibi-aniqlangandi/"
-
+    url = "https://daryo.uz/2021/08/01/tokio-2020-fransiyalik-bokschi-hakamlar-qaroridan-norozi-bo%ca%bblib-1-soat-davomida-ringni-tark-etmadi-bu-jangda-bahodir-jalolovning-yarim-finaldagi-raqibi-aniqlangandi/"    
     text = get_text(url)
     print(text)
+
+    core_words = get_core_words_kr(text)
+    print(core_words)
+
     data = clean_text(text)
     print(data)
-
-    cnt = count_word_freq(data=data)
-    print(cnt)
